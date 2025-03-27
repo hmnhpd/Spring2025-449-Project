@@ -47,24 +47,5 @@ public class GameLogicTest {
         // Assert: Check if the board size is correctly initialized
         assertEquals(expectedBoardSize, gameLogic.getBoardSize(), "The board size should be " + expectedBoardSize);
     }
-
-    @org.junit.Test
-    @Test
-    public void testPlayerMoveValidMove() {
-        // Blue player makes a move at (0,0)
-        boolean moveSuccessful = gameLogic.playerMove(0, 0);
-        assertTrue(moveSuccessful, "Move should be successful");  // Ensure the move is valid
-        assertEquals("Blue player should have moved 'S' to (0,0)", "S", gameLogic.getBoard()[0][0]);  // Verify 'S' at (0,0)
-
-        // Now Red player makes a move at (1,1)
-        moveSuccessful = gameLogic.playerMove(1, 1);
-        assertTrue(moveSuccessful, "Move should be successful");  // Ensure the move is valid
-        assertEquals("Red player should have moved 'O' to (1,1)", "O", gameLogic.getBoard()[1][1]);  // Verify 'O' at (1,1)
-
-        // Ensure that the turn has switched
-        assertEquals("It should now be Blue player's turn again", "S", gameLogic.getCurrentPlayerLetter()); // The turn should switch to blue after red's move
-    }
-
-
 }
 

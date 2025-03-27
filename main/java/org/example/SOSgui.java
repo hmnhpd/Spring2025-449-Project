@@ -33,6 +33,18 @@ public class SOSgui {
         group.add(simple);
         group.add(general);
 
+        simple.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                GameLogic.setGameMode("Simple");
+            }
+        });
+
+        general.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                GameLogic.setGameMode("General");
+            }
+        });
+
         panel.add(simple);
         panel.add(general);
         panel.setBounds(0, 0, 300, 50);
@@ -60,6 +72,7 @@ public class SOSgui {
                     public void actionPerformed(ActionEvent e) {
                         if (gameLogic.playerMove(i1,j1)){
                             space.setText(gameLogic.getCurrentPlayerLetter());
+                            space.setForeground(gameLogic.playerTurn ? Color.RED : Color.BLUE);
                             updateTurnLabel();
                         }
                     }
@@ -96,6 +109,7 @@ public class SOSgui {
                 GameLogic.setBluePlayerLetterChoice("O");
             }
         });
+
 
         blue.add(bluePlayer);
         blue.add(blueS);
@@ -153,7 +167,14 @@ public class SOSgui {
 
         newButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                newSize = Integer.parseInt(boardSize.getText());
+                try{
+                    newSize = Integer.parseInt(boardSize.getText());
+                } catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Please enter a valid number");
+                    return;
+                }
+
+                gameLogic = new GameLogic(newSize);
                 updateBoardSize(gridPanel, newSize);
                 updateTurnLabel();
             }
@@ -200,6 +221,7 @@ public class SOSgui {
                     public void actionPerformed(ActionEvent e) {
                         if (gameLogic.playerMove(row, col)){
                             gridButtons[row][col].setText(gameLogic.getCurrentPlayerLetter());
+                            gridButtons[row][col].setForeground(gameLogic.playerTurn ? Color.BLUE : Color.RED);
                             updateTurnLabel();
                         }
                     }
