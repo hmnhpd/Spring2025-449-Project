@@ -18,9 +18,9 @@ public class GeneralGameMode extends GameMode {
         if (madeSOS) {
             Player currentPlayer = gameLogic.getCurrentPlayer();
             currentPlayer.incrementSOS();
-        } else {
-            gameLogic.switchPlayerTurn();
         }
+        // ALWAYS SWITCH TURNS AFTER A MOVE
+        gameLogic.switchPlayerTurn();
 
         // CHECK IF THE GAME IS OVER AND DETERMINE THE WINNER
         if (gameLogic.getBoard().isFull()) {

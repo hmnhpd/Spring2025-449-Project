@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="org.example.ComputerOpponentTest" time="0.059" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="org.example.ComputerOpponentTest" time="0.063" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="23"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/23.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/hmnilsen154/Spring2025-449-Project/target/surefire/surefirebooter-20250417200449073_3.jar /Users/hmnilsen154/Spring2025-449-Project/target/surefire 2025-04-17T20-04-49_013-jvmRun1 surefire-20250417200449073_1tmp surefire_0-20250417200449073_2tmp"/>
+    <property name="sun.java.command" value="/Users/hmnilsen154/Spring2025-449-Project/target/surefire/surefirebooter-20250417204015892_3.jar /Users/hmnilsen154/Spring2025-449-Project/target/surefire 2025-04-17T20-40-15_830-jvmRun1 surefire-20250417204015892_1tmp surefire_0-20250417204015892_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/hmnilsen154/Spring2025-449-Project/target/test-classes:/Users/hmnilsen154/Spring2025-449-Project/target/classes:/Users/hmnilsen154/.m2/repository/org/junit/jupiter/junit-jupiter/5.9.2/junit-jupiter-5.9.2.jar:/Users/hmnilsen154/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/Users/hmnilsen154/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/Users/hmnilsen154/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/hmnilsen154/.m2/repository/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/Users/hmnilsen154/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/hmnilsen154/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/Users/hmnilsen154/.m2/repository/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/hmnilsen154/Spring2025-449-Project/target/surefire/surefirebooter-20250417200449073_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/hmnilsen154/Spring2025-449-Project/target/surefire/surefirebooter-20250417204015892_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="23.0.2"/>
@@ -58,60 +58,53 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
-  <testcase name="testComputerMakesValidMoves" classname="org.example.ComputerOpponentTest" time="0.036">
+  <testcase name="testComputerMakesValidMoves" classname="org.example.ComputerOpponentTest" time="0.037">
     <system-out><![CDATA[Game initialized - Blue starts (playerTurn = false), isBlueComputer = false, isRedComputer = false
 Board cleared - Blue starts (playerTurn = false)
 Game reset - Blue starts (playerTurn = false), isBlueComputer = false, isRedComputer = false, Blue letter = S, Red letter = S
 Attempting computer move - playerTurn: false, isRedComputer: false, isBlueComputer: true
-Checking computer turn - playerTurn: false, isRedComputer: false, isBlueComputer: true, result: true
-Making computer move for Blue player at (4,1) with letter S
+Making computer move for Blue player at (4,2) with letter S
 SOS made: false
-Turn switched to: Red, next letter will be: S
-Turn switched to: Blue, next letter will be: S
+Turn switched to: Red
+Turn switched to: Blue
 Attempting computer move - playerTurn: false, isRedComputer: false, isBlueComputer: true
-Checking computer turn - playerTurn: false, isRedComputer: false, isBlueComputer: true, result: true
-Making computer move for Blue player at (2,6) with letter S
+Making computer move for Blue player at (1,5) with letter S
 SOS made: false
-Turn switched to: Red, next letter will be: S
-Turn switched to: Blue, next letter will be: S
+Turn switched to: Red
+Turn switched to: Blue
 Attempting computer move - playerTurn: false, isRedComputer: false, isBlueComputer: true
-Checking computer turn - playerTurn: false, isRedComputer: false, isBlueComputer: true, result: true
-Making computer move for Blue player at (2,4) with letter S
+Making computer move for Blue player at (2,5) with letter S
 SOS made: false
-Turn switched to: Red, next letter will be: S
-Turn switched to: Blue, next letter will be: S
+Turn switched to: Red
+Turn switched to: Blue
 Attempting computer move - playerTurn: false, isRedComputer: false, isBlueComputer: true
-Checking computer turn - playerTurn: false, isRedComputer: false, isBlueComputer: true, result: true
-Making computer move for Blue player at (1,2) with letter S
+Making computer move for Blue player at (1,7) with letter S
 SOS made: false
-Turn switched to: Red, next letter will be: S
-Turn switched to: Blue, next letter will be: S
+Turn switched to: Red
+Turn switched to: Blue
 Attempting computer move - playerTurn: false, isRedComputer: false, isBlueComputer: true
-Checking computer turn - playerTurn: false, isRedComputer: false, isBlueComputer: true, result: true
-Making computer move for Blue player at (4,6) with letter S
+Making computer move for Blue player at (4,7) with letter S
 SOS made: false
-Turn switched to: Red, next letter will be: S
-Turn switched to: Blue, next letter will be: S
+Turn switched to: Red
+Turn switched to: Blue
 ]]></system-out>
   </testcase>
-  <testcase name="testComputerRespectsGameOver" classname="org.example.ComputerOpponentTest" time="0.001">
+  <testcase name="testComputerRespectsGameOver" classname="org.example.ComputerOpponentTest" time="0.002">
     <system-out><![CDATA[Game initialized - Blue starts (playerTurn = false), isBlueComputer = true, isRedComputer = false
 Board cleared - Blue starts (playerTurn = false)
 Game reset - Blue starts (playerTurn = false), isBlueComputer = true, isRedComputer = false, Blue letter = S, Red letter = S
 Attempting computer move - playerTurn: false, isRedComputer: true, isBlueComputer: true
-Checking computer turn - playerTurn: false, isRedComputer: true, isBlueComputer: true, result: true
 Computer move skipped - board full or game over
 ]]></system-out>
   </testcase>
-  <testcase name="testComputerUsesCorrectLetter" classname="org.example.ComputerOpponentTest" time="0.002">
+  <testcase name="testComputerUsesCorrectLetter" classname="org.example.ComputerOpponentTest" time="0.001">
     <system-out><![CDATA[Game initialized - Blue starts (playerTurn = false), isBlueComputer = true, isRedComputer = true
 Board cleared - Blue starts (playerTurn = false)
 Game reset - Blue starts (playerTurn = false), isBlueComputer = true, isRedComputer = true, Blue letter = S, Red letter = S
 Attempting computer move - playerTurn: false, isRedComputer: true, isBlueComputer: true
-Checking computer turn - playerTurn: false, isRedComputer: true, isBlueComputer: true, result: true
 Making computer move for Blue player at (0,1) with letter S
 SOS made: false
-Turn switched to: Red, next letter will be: S
+Turn switched to: Red
 ]]></system-out>
   </testcase>
   <testcase name="testComputerVsComputerGame" classname="org.example.ComputerOpponentTest" time="0.001">
@@ -119,10 +112,9 @@ Turn switched to: Red, next letter will be: S
 Board cleared - Blue starts (playerTurn = false)
 Game reset - Blue starts (playerTurn = false), isBlueComputer = true, isRedComputer = true, Blue letter = S, Red letter = S
 Attempting computer move - playerTurn: false, isRedComputer: true, isBlueComputer: true
-Checking computer turn - playerTurn: false, isRedComputer: true, isBlueComputer: true, result: true
-Making computer move for Blue player at (6,4) with letter S
+Making computer move for Blue player at (4,5) with letter S
 SOS made: false
-Turn switched to: Red, next letter will be: S
+Turn switched to: Red
 ]]></system-out>
   </testcase>
   <testcase name="testComputerAlternatesTurns" classname="org.example.ComputerOpponentTest" time="0.002">
@@ -130,15 +122,13 @@ Turn switched to: Red, next letter will be: S
 Board cleared - Blue starts (playerTurn = false)
 Game reset - Blue starts (playerTurn = false), isBlueComputer = true, isRedComputer = true, Blue letter = S, Red letter = S
 Attempting computer move - playerTurn: false, isRedComputer: true, isBlueComputer: true
-Checking computer turn - playerTurn: false, isRedComputer: true, isBlueComputer: true, result: true
-Making computer move for Blue player at (4,0) with letter S
+Making computer move for Blue player at (2,7) with letter S
 SOS made: false
-Turn switched to: Red, next letter will be: S
+Turn switched to: Red
 Attempting computer move - playerTurn: true, isRedComputer: true, isBlueComputer: true
-Checking computer turn - playerTurn: true, isRedComputer: true, isBlueComputer: true, result: true
-Making computer move for Red player at (4,7) with letter S
+Making computer move for Red player at (5,7) with letter S
 SOS made: false
-Turn switched to: Blue, next letter will be: S
+Turn switched to: Blue
 ]]></system-out>
   </testcase>
 </testsuite>

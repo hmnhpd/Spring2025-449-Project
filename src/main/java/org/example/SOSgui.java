@@ -1,4 +1,6 @@
 package org.example;
+import org.example.GameLogic;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -203,18 +205,8 @@ public class SOSgui {
         updateBoardDisplay();
         updateTurnLabel();
         
-        
-        if (gameLogic.isComputerTurn()) {
-            Timer timer = new Timer(500, e -> {
-                if (gameLogic.isComputerTurn()) {
-                    gameLogic.makeComputerMove();
-                    updateBoardDisplay();
-                    updateTurnLabel();
-                }
-            });
-            timer.setRepeats(false);
-            timer.start();
-        }
+        // Handle initial computer move if needed
+        handleComputerMove();
     }
 
     private static void initializeGrid() {
@@ -250,18 +242,8 @@ public class SOSgui {
                             updateBoardDisplay();
                             updateTurnLabel();
                             
-                            // If it's computer's turn after the move, schedule their move with a delay
-                            if (gameLogic.isComputerTurn()) {
-                                Timer timer = new Timer(1000, event -> {
-                                    if (gameLogic.isComputerTurn()) {
-                                        gameLogic.makeComputerMove();
-                                        updateBoardDisplay();
-                                        updateTurnLabel();
-                                    }
-                                });
-                                timer.setRepeats(false);
-                                timer.start();
-                            }
+                            // Handle computer move if it's now computer's turn
+                            handleComputerMove();
                         }
                     }
                 });
@@ -274,7 +256,7 @@ public class SOSgui {
 
     public static void updateBoardDisplay() {
         System.out.println("Updating board display");
-        Board board = gameLogic.getBoard();
+        org.example.Board board = gameLogic.getBoard();
         for (int i = 0; i < newSize; i++) {
             for (int j = 0; j < newSize; j++) {
                 String cell = board.get(i, j);
@@ -308,9 +290,25 @@ public class SOSgui {
 
     public static void updateTurnLabel() {
         String currentPlayer = gameLogic.isPlayerTurn() ? "Red" : "Blue";
-        Player player = gameLogic.getCurrentPlayer();
+        org.example.Player player = gameLogic.getCurrentPlayer();
         String letter = player.getLetterChoice();
         String playerType = gameLogic.isComputerTurn() ? " (Computer)" : " (Human)";
         turnDisplay.setText("Current Turn: " + currentPlayer + playerType + " - Letter: " + letter);
+    }
+
+    private static void handleComputerMove() {
+        if (gameLogic.isComputerTurn() && !gameLogic.isGameOver()) {
+            Timer timer = new Timer(500, e -> {
+                if (gameLogic.isComputerTurn() && !gameLogic.isGameOver()) {
+                    gameLogic.makeComputerMove();
+                    updateBoardDisplay();
+                    updateTurnLabel();
+                    // Schedule next computer move if it's still computer's turn
+                    handleComputerMove();
+                }
+            });
+            timer.setRepeats(false);
+            timer.start();
+        }
     }
 }

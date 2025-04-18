@@ -1,4 +1,10 @@
 package org.example;
+import org.example.*;
+import org.example.Board;
+import org.example.GameMode;
+import org.example.Player;
+import org.example.SimpleGameMode;
+
 import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.util.Random;
@@ -40,7 +46,7 @@ public class GameLogic {
         if (gameModeType.equalsIgnoreCase("Simple")) {
             this.gameMode = new SimpleGameMode(this);
         } else {
-            this.gameMode = new GeneralGameMode(this);
+            this.gameMode = new org.example.GeneralGameMode(this);
         }
 
         System.out.println("Game initialized - Blue starts (playerTurn = " + playerTurn + 
@@ -124,17 +130,11 @@ public class GameLogic {
     }
 
     public boolean isComputerTurn() {
-        boolean result = (playerTurn && isRedComputerPlayer) || (!playerTurn && isBlueComputerPlayer);
-        System.out.println("Checking computer turn - playerTurn: " + playerTurn + 
-                         ", isRedComputer: " + isRedComputerPlayer + 
-                         ", isBlueComputer: " + isBlueComputerPlayer +
-                         ", result: " + result);
-        return result;
+        return (playerTurn && isRedComputerPlayer) || (!playerTurn && isBlueComputerPlayer);
     }
 
     public boolean isHumanTurn() {
-        // If it's Red's turn and Red is not a computer, or if it's Blue's turn and Blue is not a computer
-        return (playerTurn && !isRedComputerPlayer) || (!playerTurn && !isBlueComputerPlayer);
+        return !isComputerTurn();
     }
 
     public void clearBoard() {
@@ -147,9 +147,7 @@ public class GameLogic {
 
     public void switchPlayerTurn() {
         playerTurn = !playerTurn;
-        Player nextPlayer = getCurrentPlayer();
-        System.out.println("Turn switched to: " + (playerTurn ? "Red" : "Blue") + 
-                         ", next letter will be: " + nextPlayer.getLetterChoice());
+        System.out.println("Turn switched to: " + (playerTurn ? "Red" : "Blue"));
     }
 
     public Player getCurrentPlayer() {
