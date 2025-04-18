@@ -50,37 +50,37 @@ public class Board {
             throw new IllegalArgumentException("Player letter must be 'S' or 'O'");
         }
         
-        // Check all possible SOS patterns
+        // CHECK ALL POSSIBLE SOS PATTERNS
         if (playerLetter.equals("S")) {
-            // When placing an S, check if it completes any SOS pattern
-            // either as the first S or the last S
+            // WHEN PLACING AN S, CHECK IF IT COMPLETES ANY SOS PATTERN
+            // EITHER AS THE FIRST S OR THE LAST S
             return checkSOSAsFirstS(row, col) || checkSOSAsLastS(row, col);
         } else {
-            // When placing an O, check if it can be part of an SOS pattern
+            // WHEN PLACING AN O, CHECK IF IT CAN BE PART OF AN SOS PATTERN
             return checkSOSWithO(row, col);
         }
     }
 
     private boolean checkSOSAsFirstS(int row, int col) {
-        // Check right
+        // CHECK RIGHT
         if (col <= size - 3) {
             if (board[row][col + 1].equals("O") && board[row][col + 2].equals("S")) {
                 return true;
             }
         }
-        // Check down
+        // CHECK DOWN
         if (row <= size - 3) {
             if (board[row + 1][col].equals("O") && board[row + 2][col].equals("S")) {
                 return true;
             }
         }
-        // Check diagonal down-right
+        // CHECK DIAGONAL DOWN-RIGHT
         if (row <= size - 3 && col <= size - 3) {
             if (board[row + 1][col + 1].equals("O") && board[row + 2][col + 2].equals("S")) {
                 return true;
             }
         }
-        // Check diagonal down-left
+        // CHECK DIAGONAL DOWN-LEFT
         if (row <= size - 3 && col >= 2) {
             if (board[row + 1][col - 1].equals("O") && board[row + 2][col - 2].equals("S")) {
                 return true;
@@ -90,25 +90,25 @@ public class Board {
     }
 
     private boolean checkSOSAsLastS(int row, int col) {
-        // Check left
+        // CHECK LEFT
         if (col >= 2) {
             if (board[row][col - 2].equals("S") && board[row][col - 1].equals("O")) {
                 return true;
             }
         }
-        // Check up
+        // CHECK UP
         if (row >= 2) {
             if (board[row - 2][col].equals("S") && board[row - 1][col].equals("O")) {
                 return true;
             }
         }
-        // Check diagonal up-left
+        // CHECK DIAGONAL UP-LEFT
         if (row >= 2 && col >= 2) {
             if (board[row - 2][col - 2].equals("S") && board[row - 1][col - 1].equals("O")) {
                 return true;
             }
         }
-        // Check diagonal up-right
+        // CHECK DIAGONAL UP-RIGHT
         if (row >= 2 && col <= size - 3) {
             if (board[row - 2][col + 2].equals("S") && board[row - 1][col + 1].equals("O")) {
                 return true;
@@ -118,25 +118,25 @@ public class Board {
     }
 
     private boolean checkSOSWithO(int row, int col) {
-        // Check horizontal
+        // CHECK HORIZONTAL
         if (col >= 1 && col <= size - 2) {
             if (board[row][col - 1].equals("S") && board[row][col + 1].equals("S")) {
                 return true;
             }
         }
-        // Check vertical
+        // CHECK VERTICAL
         if (row >= 1 && row <= size - 2) {
             if (board[row - 1][col].equals("S") && board[row + 1][col].equals("S")) {
                 return true;
             }
         }
-        // Check diagonal (top-left to bottom-right)
+        // CHECK DIAGONAL (TOP-LEFT TO BOTTOM-RIGHT)
         if (row >= 1 && row <= size - 2 && col >= 1 && col <= size - 2) {
             if (board[row - 1][col - 1].equals("S") && board[row + 1][col + 1].equals("S")) {
                 return true;
             }
         }
-        // Check diagonal (top-right to bottom-left)
+        // CHECK DIAGONAL (TOP-RIGHT TO BOTTOM-LEFT)
         if (row >= 1 && row <= size - 2 && col >= 1 && col <= size - 2) {
             if (board[row - 1][col + 1].equals("S") && board[row + 1][col - 1].equals("S")) {
                 return true;
@@ -159,7 +159,7 @@ public class Board {
     
     public int getSize() { return size; }
     
-    // Return a defensive copy of the board
+    // RETURN A DEFENSIVE COPY OF THE BOARD
     public String[][] getGrid() {
         String[][] copy = new String[size][size];
         for (int i = 0; i < size; i++) {

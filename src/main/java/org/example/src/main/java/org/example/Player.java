@@ -15,7 +15,7 @@ public class Player {
     public String getName() { return name; }
     public String getLetterChoice() { return letterChoice; }
     public int getSOSCount() { return sosCount; }
-    public int getScore() { return sosCount; } // Alias for getSOSCount
+    public int getScore() { return sosCount; } // ALIAS FOR GETSOS_COUNT
 
     //SETTERS
     public void setLetterChoice(String letterChoice) { 

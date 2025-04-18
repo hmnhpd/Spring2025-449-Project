@@ -13,8 +13,14 @@ public class SOSgui {
     private static JButton[][] gridButtons;
 
     public static void main(String[] args) {
-        // Initialize game logic
+    
         gameLogic = new GameLogic(newSize);
+        
+        // SET UP PLAYERS - BOTH PLAYERS START AS HUMAN WITH S
+        GameLogic.setBluePlayerComputer(false);
+        GameLogic.setRedPlayerComputer(false);
+        GameLogic.setBluePlayerLetterChoice("S");
+        GameLogic.setRedPlayerLetterChoice("S");
         
         //MAIN WINDOW
         JFrame frame = new JFrame("SOS Game");
@@ -33,7 +39,7 @@ public class SOSgui {
         ButtonGroup group = new ButtonGroup();
         group.add(simple);
         group.add(general);
-        simple.setSelected(true); // Default to Simple game mode
+        simple.setSelected(true); // DEFAULT TO SIMPLE GAME MODE
 
         simple.addActionListener(e -> {
             GameLogic.setGameMode("Simple");
@@ -75,18 +81,15 @@ public class SOSgui {
 
         blueS.addActionListener(e -> {
             GameLogic.setBluePlayerLetterChoice("S");
-            GameLogic.setBluePlayerComputer(false);
-            blueComputer.setSelected(false);
             resetGame();
         });
         blueO.addActionListener(e -> {
             GameLogic.setBluePlayerLetterChoice("O");
-            GameLogic.setBluePlayerComputer(false);
-            blueComputer.setSelected(false);
             resetGame();
         });
         blueComputer.addActionListener(e -> {
             GameLogic.setBluePlayerComputer(blueComputer.isSelected());
+            resetGame();
         });
 
         blue.add(bluePlayer);
@@ -113,18 +116,15 @@ public class SOSgui {
 
         redS.addActionListener(e -> {
             GameLogic.setRedPlayerLetterChoice("S");
-            GameLogic.setRedPlayerComputer(false);
-            redComputer.setSelected(false);
             resetGame();
         });
         redO.addActionListener(e -> {
             GameLogic.setRedPlayerLetterChoice("O");
-            GameLogic.setRedPlayerComputer(false);
-            redComputer.setSelected(false);
             resetGame();
         });
         redComputer.addActionListener(e -> {
             GameLogic.setRedPlayerComputer(redComputer.isSelected());
+            resetGame();
         });
 
         red.add(redPlayer);
@@ -138,7 +138,7 @@ public class SOSgui {
         JLabel board = new JLabel("Board Size");
         JPanel size = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JTextField boardSize = new JTextField(2);
-        boardSize.setText(String.valueOf(newSize)); // Set default size
+        boardSize.setText(String.valueOf(newSize)); // SET DEFAULT SIZE
         size.add(board);
         size.add(boardSize);
         frame.add(size, BorderLayout.NORTH);
@@ -180,40 +180,37 @@ public class SOSgui {
         frame.setVisible(true);
     }
 
-    private static void resetGame() {
-        System.out.println("Resetting game");
-        gameLogic = new GameLogic(newSize);
-        gameLogic.resetGame();
-        updateBoardSize(newSize);
-        updateTurnLabel();
-        updateBoard();
+    public static void resetGame() {
+        // GET CURRENT PLAYER SETTINGS BEFORE CREATING NEW GAMELOGIC INSTANCE
+        String blueLetter = GameLogic.getBluePlayerLetterChoice();
+        String redLetter = GameLogic.getRedPlayerLetterChoice();
+        boolean isBlueComputer = GameLogic.isBlueComputerPlayer();
+        boolean isRedComputer = GameLogic.isRedComputerPlayer();
         
-        // If both players are computers, start the game with a computer move
-        if (GameLogic.isRedComputerPlayer() && GameLogic.isBlueComputerPlayer() && !gameLogic.isGameOver()) {
-            System.out.println("Starting computer vs computer game");
-            Timer timer = new Timer(500, ev -> {
-                System.out.println("Making first computer move");
-                // Get the current player's letter and color
-                Player currentPlayer = gameLogic.getCurrentPlayer();
-                String currentLetter = currentPlayer.getLetterChoice();
-                Color currentColor = gameLogic.isPlayerTurn() ? Color.RED : Color.BLUE;
-                
-                // Make the move
-                gameLogic.makeComputerMove();
-                
-                // Update the UI directly
-                Board board = gameLogic.getBoard();
-                for (int i = 0; i < newSize; i++) {
-                    for (int j = 0; j < newSize; j++) {
-                        String cell = board.get(i, j);
-                        if (!cell.equals(" ")) {
-                            gridButtons[i][j].setText(cell);
-                            gridButtons[i][j].setForeground(board.getColor(i, j));
-                        }
-                    }
+        // CREATE NEW GAMELOGIC INSTANCE
+        gameLogic = new GameLogic(newSize);
+        
+        // RESTORE PLAYER SETTINGS
+        GameLogic.setBluePlayerLetterChoice(blueLetter);
+        GameLogic.setRedPlayerLetterChoice(redLetter);
+        GameLogic.setBluePlayerComputer(isBlueComputer);
+        GameLogic.setRedPlayerComputer(isRedComputer);
+        
+        // INITIALIZE THE GRID
+        initializeGrid();
+        
+        // UPDATE UI
+        updateBoardDisplay();
+        updateTurnLabel();
+        
+        
+        if (gameLogic.isComputerTurn()) {
+            Timer timer = new Timer(500, e -> {
+                if (gameLogic.isComputerTurn()) {
+                    gameLogic.makeComputerMove();
+                    updateBoardDisplay();
+                    updateTurnLabel();
                 }
-                
-                updateTurnLabel();
             });
             timer.setRepeats(false);
             timer.start();
@@ -239,36 +236,28 @@ public class SOSgui {
                 final int col = j;
                 gridButtons[i][j].addActionListener(e -> {
                     if (gameLogic.getBoard().isCellEmpty(row, col) && !gameLogic.isGameOver()) {
-                        // Don't allow human move if it's computer's turn
-                        if ((GameLogic.isRedComputerPlayer() && gameLogic.isPlayerTurn()) || 
-                            (GameLogic.isBlueComputerPlayer() && !gameLogic.isPlayerTurn())) {
+                        // Only allow moves when it's the human player's turn
+                        if (!gameLogic.isHumanTurn()) {
+                            System.out.println("Move blocked - not human's turn");
                             return;
                         }
 
-                        // Get the current player's letter and color
-                        Player currentPlayer = gameLogic.getCurrentPlayer();
-                        String currentLetter = currentPlayer.getLetterChoice();
-                        Color currentColor = gameLogic.isPlayerTurn() ? Color.RED : Color.BLUE;
-                        
-                        // Make the move and update the UI
-                        gridButtons[row][col].setText(currentLetter);
-                        gridButtons[row][col].setForeground(currentColor);
+                        System.out.println("Processing human move at (" + row + "," + col + ")");
                         
                         // Process the move in game logic
                         if (gameLogic.playerMove(row, col)) {
-                            // Update the turn display and board
+                            // Update the UI after the move
+                            updateBoardDisplay();
                             updateTurnLabel();
-                            updateBoard();
                             
-                            // If it's computer's turn now and game isn't over, make the computer move
-                            if (!gameLogic.isGameOver() && 
-                                ((GameLogic.isRedComputerPlayer() && gameLogic.isPlayerTurn()) || 
-                                 (GameLogic.isBlueComputerPlayer() && !gameLogic.isPlayerTurn()))) {
-                                // Small delay to make computer moves visible
-                                Timer timer = new Timer(500, ev -> {
-                                    gameLogic.makeComputerMove();
-                                    updateTurnLabel();
-                                    updateBoard();
+                            // If it's computer's turn after the move, schedule their move with a delay
+                            if (gameLogic.isComputerTurn()) {
+                                Timer timer = new Timer(1000, event -> {
+                                    if (gameLogic.isComputerTurn()) {
+                                        gameLogic.makeComputerMove();
+                                        updateBoardDisplay();
+                                        updateTurnLabel();
+                                    }
                                 });
                                 timer.setRepeats(false);
                                 timer.start();
@@ -283,17 +272,19 @@ public class SOSgui {
         gridPanel.repaint();
     }
 
-    public static void updateBoard() {
+    public static void updateBoardDisplay() {
         System.out.println("Updating board display");
         Board board = gameLogic.getBoard();
         for (int i = 0; i < newSize; i++) {
             for (int j = 0; j < newSize; j++) {
                 String cell = board.get(i, j);
-                gridButtons[i][j].setText(cell);
+                Color cellColor = board.getColor(i, j);
                 if (!cell.equals(" ")) {
-                    System.out.println("Updating cell (" + i + "," + j + ") with " + cell + " and color " + board.getColor(i, j));
-                    gridButtons[i][j].setForeground(board.getColor(i, j));
+                    gridButtons[i][j].setText(cell);
+                    gridButtons[i][j].setForeground(cellColor);
+                    System.out.println("Updating cell (" + i + "," + j + ") with " + cell + " and color " + cellColor);
                 } else {
+                    gridButtons[i][j].setText(" ");
                     gridButtons[i][j].setForeground(Color.BLACK);
                 }
             }
@@ -304,12 +295,22 @@ public class SOSgui {
     }
 
     private static void updateBoardSize(int size) {
+        if (size < 3) {
+            JOptionPane.showMessageDialog(null, "Board size must be at least 3");
+            return;
+        }
         newSize = size;
+        gameLogic = new GameLogic(newSize);
         initializeGrid();
+        updateBoardDisplay();
+        updateTurnLabel();
     }
 
     public static void updateTurnLabel() {
         String currentPlayer = gameLogic.isPlayerTurn() ? "Red" : "Blue";
-        turnDisplay.setText("Current Turn: " + currentPlayer + " Player");
+        Player player = gameLogic.getCurrentPlayer();
+        String letter = player.getLetterChoice();
+        String playerType = gameLogic.isComputerTurn() ? " (Computer)" : " (Human)";
+        turnDisplay.setText("Current Turn: " + currentPlayer + playerType + " - Letter: " + letter);
     }
 }

@@ -22,6 +22,7 @@ public class GeneralGameMode extends GameMode {
             gameLogic.switchPlayerTurn();
         }
 
+        // CHECK IF THE GAME IS OVER AND DETERMINE THE WINNER
         if (gameLogic.getBoard().isFull()) {
             int redScore = gameLogic.getRedPlayer().getSOSCount();
             int blueScore = gameLogic.getBluePlayer().getSOSCount();

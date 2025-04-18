@@ -17,14 +17,14 @@ public class ComputerOpponentTest {
 
     @Test
     void testComputerVsComputerGame() {
-        // Set both players as computers
+        // SET BOTH PLAYERS AS COMPUTERS
         GameLogic.setRedPlayerComputer(true);
         GameLogic.setBluePlayerComputer(true);
         
-        // Make first computer move
+        // MAKE FIRST COMPUTER MOVE
         gameLogic.makeComputerMove();
         
-        // Verify that a move was made
+        // VERIFY THAT A MOVE WAS MADE
         boolean moveMade = false;
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -39,14 +39,14 @@ public class ComputerOpponentTest {
 
     @Test
     void testComputerMakesValidMoves() {
-        // Set red player as computer
-        GameLogic.setRedPlayerComputer(true);
+        // SET BLUE PLAYER AS COMPUTER (SINCE GAME STARTS WITH BLUE'S TURN)
+        GameLogic.setBluePlayerComputer(true);
         
-        // Make several moves and verify they're valid
+        // MAKE SEVERAL MOVES AND VERIFY THEY'RE VALID
         for (int i = 0; i < 5; i++) {
             gameLogic.makeComputerMove();
             
-            // Verify the move was made in an empty cell
+            // VERIFY THE MOVE WAS MADE IN AN EMPTY CELL
             boolean validMove = false;
             for (int row = 0; row < BOARD_SIZE; row++) {
                 for (int col = 0; col < BOARD_SIZE; col++) {
@@ -60,28 +60,28 @@ public class ComputerOpponentTest {
             }
             assertTrue(validMove, "Computer should make a valid move");
             
-            // Switch turns
+            // SWITCH TURNS
             gameLogic.switchPlayerTurn();
         }
     }
 
     @Test
     void testComputerRespectsGameOver() {
-        // Set both players as computers
+        // SET BOTH PLAYERS AS COMPUTERS
         GameLogic.setRedPlayerComputer(true);
         GameLogic.setBluePlayerComputer(true);
         
-        // Fill the board
+        // FILL THE BOARD
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 gameLogic.getBoard().setMove(i, j, "S", Color.RED);
             }
         }
         
-        // Try to make a move
+        // TRY TO MAKE A MOVE
         gameLogic.makeComputerMove();
         
-        // Verify no new moves were made
+        // VERIFY NO NEW MOVES WERE MADE
         int moveCount = 0;
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -96,14 +96,14 @@ public class ComputerOpponentTest {
 
     @Test
     void testComputerUsesCorrectLetter() {
-        // Set red player as computer with letter S
+        // SET RED PLAYER AS COMPUTER WITH LETTER S
         GameLogic.setRedPlayerComputer(true);
         GameLogic.setRedPlayerLetterChoice("S");
         
-        // Make a move
+        // MAKE A MOVE
         gameLogic.makeComputerMove();
         
-        // Verify the correct letter was used
+        // VERIFY THE CORRECT LETTER WAS USED
         boolean foundS = false;
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -118,37 +118,37 @@ public class ComputerOpponentTest {
 
     @Test
     void testComputerAlternatesTurns() {
-        // Set both players as computers
+        // SET BOTH PLAYERS AS COMPUTERS
         GameLogic.setRedPlayerComputer(true);
         GameLogic.setBluePlayerComputer(true);
         
-        // Make first move (should be red)
-        gameLogic.makeComputerMove();
-        boolean redMoveMade = false;
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                if (!gameLogic.getBoard().isCellEmpty(i, j)) {
-                    assertEquals(Color.RED, gameLogic.getBoard().getColor(i, j),
-                        "First move should be red player's move");
-                    redMoveMade = true;
-                    break;
-                }
-            }
-        }
-        assertTrue(redMoveMade, "Red player should make the first move");
-        
-        // Make second move (should be blue)
+        // MAKE FIRST MOVE (SHOULD BE BLUE)
         gameLogic.makeComputerMove();
         boolean blueMoveMade = false;
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
-                if (!gameLogic.getBoard().isCellEmpty(i, j) && 
-                    gameLogic.getBoard().getColor(i, j).equals(Color.BLUE)) {
+                if (!gameLogic.getBoard().isCellEmpty(i, j)) {
+                    assertEquals(Color.BLUE, gameLogic.getBoard().getColor(i, j),
+                        "First move should be blue player's move");
                     blueMoveMade = true;
                     break;
                 }
             }
         }
-        assertTrue(blueMoveMade, "Blue player should make the second move");
+        assertTrue(blueMoveMade, "Blue player should make the first move");
+        
+        // MAKE SECOND MOVE (SHOULD BE RED)
+        gameLogic.makeComputerMove();
+        boolean redMoveMade = false;
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                if (!gameLogic.getBoard().isCellEmpty(i, j) && 
+                    gameLogic.getBoard().getColor(i, j).equals(Color.RED)) {
+                    redMoveMade = true;
+                    break;
+                }
+            }
+        }
+        assertTrue(redMoveMade, "Red player should make the second move");
     }
 } 

@@ -19,6 +19,7 @@ public class SimpleGameMode extends GameMode {
             JOptionPane.showMessageDialog(null, winner + " Player Won!");
             gameLogic.setGameOver(true);
         } else {
+            // ONLY SWITCH TURNS IF NO SOS WAS MADE
             gameLogic.switchPlayerTurn();
         }
     }
